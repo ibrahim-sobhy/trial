@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t ibrahim/hadeeth
+
+script:
+  - docker run ibrahim/hadeeth
+deploy:
+  provider: elasticbeanstalk
+  regions: "us-east-1"
+  app: "Sobhysample"
+  env: "Sobhysample-env"
+  bucket_name: "elasticbeanstalk-us-east-1-064382240297"
+  bucket_path: "Sobhysample"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
+  
